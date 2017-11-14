@@ -701,8 +701,23 @@ func readSheetFromFile(sc chan *indexedSheet, index int, rsheet xlsxSheet, fi *F
 	sheet.SheetFormat.OutlineLevelCol = worksheet.SheetFormatPr.OutlineLevelCol
 	sheet.SheetFormat.OutlineLevelRow = worksheet.SheetFormatPr.OutlineLevelRow
 
-	sheet.SheetPr.FilterMode = worksheet.SheetPr.FilterMode
+	sheet.PageSetUp.PaperSize = worksheet.PageSetUp.PaperSize
+	sheet.PageSetUp.Scale = worksheet.PageSetUp.Scale
+	sheet.PageSetUp.FirstPageNumber = worksheet.PageSetUp.FirstPageNumber
+	sheet.PageSetUp.FitToWidth = worksheet.PageSetUp.FitToWidth
+	sheet.PageSetUp.FitToHeight = worksheet.PageSetUp.FitToHeight
+	sheet.PageSetUp.PageOrder = worksheet.PageSetUp.PageOrder
+	sheet.PageSetUp.Orientation = worksheet.PageSetUp.Orientation
+	sheet.PageSetUp.UsePrinterDefaults = worksheet.PageSetUp.UsePrinterDefaults
+	sheet.PageSetUp.BlackAndWhite = worksheet.PageSetUp.BlackAndWhite
+	sheet.PageSetUp.Draft = worksheet.PageSetUp.Draft
+	sheet.PageSetUp.CellComments = worksheet.PageSetUp.CellComments
+	sheet.PageSetUp.UseFirstPageNumber = worksheet.PageSetUp.UseFirstPageNumber
+	sheet.PageSetUp.HorizontalDPI = worksheet.PageSetUp.HorizontalDPI
+	sheet.PageSetUp.VerticalDPI = worksheet.PageSetUp.VerticalDPI
+	sheet.PageSetUp.Copies = worksheet.PageSetUp.Copies
 
+	sheet.SheetPr.FilterMode = worksheet.SheetPr.FilterMode
 	var pageSetUpPr []*PageSetUpPr
 	if worksheet.SheetPr.PageSetUpPr != nil {
 		for _, xPageSetUpPr := range worksheet.SheetPr.PageSetUpPr {
