@@ -700,6 +700,21 @@ func readSheetFromFile(sc chan *indexedSheet, index int, rsheet xlsxSheet, fi *F
 	sheet.SheetFormat.OutlineLevelCol = worksheet.SheetFormatPr.OutlineLevelCol
 	sheet.SheetFormat.OutlineLevelRow = worksheet.SheetFormatPr.OutlineLevelRow
 
+	sheet.SheetPr.FilterMode = worksheet.SheetPr.FilterMode
+
+	var pageSetUpPr []*PageSetUpPr
+	if worksheet.SheetPr.PageSetUpPr != nil {
+		for _, xPageSetUpPr := range worksheet.SheetPr.PageSetUpPr {
+			pageSetUpPr = append(
+				pageSetUpPr,
+				&PageSetUpPr{
+					FitToPage: xPageSetUpPr.FitToPage,
+				},
+			)
+		}
+	}
+	sheet.SheetPr.PageSetUpPr = pageSetUpPr
+
 	result.Sheet = sheet
 	sc <- result
 	return nil
