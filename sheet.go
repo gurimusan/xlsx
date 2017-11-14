@@ -224,8 +224,8 @@ func (s *Sheet) makeXLSXSheet(refTable *RefTable, styles *xlsxStyleSheet) *xlsxW
 				worksheet.SheetPr.PageSetUpPr,
 				xlsxPageSetUpPr{FitToPage: false},
 			)
-			worksheet.SheetPr.PageSetUpPr[index].FitToPage = pageSetUpPr.FitToPage
 		}
+		worksheet.SheetPr.PageSetUpPr[index].FitToPage = pageSetUpPr.FitToPage
 	}
 
 	if s.Selected {
