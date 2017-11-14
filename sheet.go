@@ -20,6 +20,7 @@ type Sheet struct {
 	SheetViews  []SheetView
 	SheetFormat SheetFormat
 	AutoFilter  *AutoFilter
+	SheetPr     SheetPr
 }
 
 type SheetView struct {
@@ -44,6 +45,15 @@ type SheetFormat struct {
 type AutoFilter struct {
 	TopLeftCell     string
 	BottomRightCell string
+}
+
+type SheetPr struct {
+	FilterMode  bool
+	PageSetUpPr []*PageSetUpPr
+}
+
+type PageSetUpPr struct {
+	FitToPage bool
 }
 
 // Add a new Row to a Sheet
@@ -204,6 +214,17 @@ func (s *Sheet) makeXLSXSheet(refTable *RefTable, styles *xlsxStyleSheet) *xlsxW
 				State:       sheetView.Pane.State,
 			}
 
+		}
+	}
+
+	worksheet.SheetPr.FilterMode = s.SheetPr.FilterMode
+	for index, pageSetUpPr := range s.SheetPr.PageSetUpPr {
+		if index >= len(worksheet.SheetPr.PageSetUpPr) {
+			worksheet.SheetPr.PageSetUpPr = append(
+				worksheet.SheetPr.PageSetUpPr,
+				xlsxPageSetUpPr{FitToPage: false},
+			)
+			worksheet.SheetPr.PageSetUpPr[index].FitToPage = pageSetUpPr.FitToPage
 		}
 	}
 
