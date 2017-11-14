@@ -20,6 +20,7 @@ type Sheet struct {
 	SheetViews  []SheetView
 	SheetFormat SheetFormat
 	AutoFilter  *AutoFilter
+	PageSetUp   PageSetUp
 	SheetPr     SheetPr
 }
 
@@ -45,6 +46,24 @@ type SheetFormat struct {
 type AutoFilter struct {
 	TopLeftCell     string
 	BottomRightCell string
+}
+
+type PageSetUp struct {
+	PaperSize          string
+	Scale              int
+	FirstPageNumber    int
+	FitToWidth         int
+	FitToHeight        int
+	PageOrder          string
+	Orientation        string
+	UsePrinterDefaults bool
+	BlackAndWhite      bool
+	Draft              bool
+	CellComments       string
+	UseFirstPageNumber bool
+	HorizontalDPI      float32
+	VerticalDPI        float32
+	Copies             int
 }
 
 type SheetPr struct {
@@ -213,9 +232,24 @@ func (s *Sheet) makeXLSXSheet(refTable *RefTable, styles *xlsxStyleSheet) *xlsxW
 				ActivePane:  sheetView.Pane.ActivePane,
 				State:       sheetView.Pane.State,
 			}
-
 		}
 	}
+
+	worksheet.PageSetUp.PaperSize = s.PageSetUp.PaperSize
+	worksheet.PageSetUp.Scale = s.PageSetUp.Scale
+	worksheet.PageSetUp.FirstPageNumber = s.PageSetUp.FirstPageNumber
+	worksheet.PageSetUp.FitToWidth = s.PageSetUp.FitToWidth
+	worksheet.PageSetUp.FitToHeight = s.PageSetUp.FitToHeight
+	worksheet.PageSetUp.PageOrder = s.PageSetUp.PageOrder
+	worksheet.PageSetUp.Orientation = s.PageSetUp.Orientation
+	worksheet.PageSetUp.UsePrinterDefaults = s.PageSetUp.UsePrinterDefaults
+	worksheet.PageSetUp.BlackAndWhite = s.PageSetUp.BlackAndWhite
+	worksheet.PageSetUp.Draft = s.PageSetUp.Draft
+	worksheet.PageSetUp.CellComments = s.PageSetUp.CellComments
+	worksheet.PageSetUp.UseFirstPageNumber = s.PageSetUp.UseFirstPageNumber
+	worksheet.PageSetUp.HorizontalDPI = s.PageSetUp.HorizontalDPI
+	worksheet.PageSetUp.VerticalDPI = s.PageSetUp.VerticalDPI
+	worksheet.PageSetUp.Copies = s.PageSetUp.Copies
 
 	worksheet.SheetPr.FilterMode = s.SheetPr.FilterMode
 	for index, pageSetUpPr := range s.SheetPr.PageSetUpPr {
