@@ -66,9 +66,29 @@ type PageSetUp struct {
 	Copies             int
 }
 
+func NewPageSetUp() PageSetUp {
+	return PageSetUp{
+		PaperSize:          "9",
+		Scale:              100,
+		FirstPageNumber:    1,
+		FitToWidth:         1,
+		FitToHeight:        1,
+		PageOrder:          "downThenOver",
+		Orientation:        "portrait",
+		UsePrinterDefaults: false,
+		BlackAndWhite:      false,
+		Draft:              false,
+		CellComments:       "none",
+		UseFirstPageNumber: true,
+		HorizontalDPI:      300,
+		VerticalDPI:        300,
+		Copies:             1,
+	}
+}
+
 type SheetPr struct {
 	FilterMode  bool
-	PageSetUpPr []*PageSetUpPr
+	PageSetUpPr []PageSetUpPr
 }
 
 type PageSetUpPr struct {
