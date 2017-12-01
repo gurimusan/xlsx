@@ -717,12 +717,12 @@ func readSheetFromFile(sc chan *indexedSheet, index int, rsheet xlsxSheet, fi *F
 	sheet.PageSetUp.Copies = worksheet.PageSetUp.Copies
 
 	sheet.SheetPr.FilterMode = worksheet.SheetPr.FilterMode
-	var pageSetUpPr []*PageSetUpPr
+	var pageSetUpPr []PageSetUpPr
 	if worksheet.SheetPr.PageSetUpPr != nil {
 		for _, xPageSetUpPr := range worksheet.SheetPr.PageSetUpPr {
 			pageSetUpPr = append(
 				pageSetUpPr,
-				&PageSetUpPr{
+				PageSetUpPr{
 					FitToPage: xPageSetUpPr.FitToPage,
 				},
 			)

@@ -159,10 +159,13 @@ func (f *File) AddSheet(sheetName string) (*Sheet, error) {
 		return nil, fmt.Errorf("sheet name must be less than 31 characters long.  It is currently '%d' characters long", utf8.RuneCountInString(sheetName))
 	}
 	sheet := &Sheet{
-		Name:     sheetName,
-		File:     f,
-		Selected: len(f.Sheets) == 0,
+		Name:      sheetName,
+		File:      f,
+		Selected:  len(f.Sheets) == 0,
+		PageSetUp: NewPageSetUp(),
 	}
+	sheet.SheetPr.PageSetUpPr = make([]PageSetUpPr, 1)
+	sheet.SheetPr.PageSetUpPr[0] = PageSetUpPr{FitToPage: false}
 	f.Sheet[sheetName] = sheet
 	f.Sheets = append(f.Sheets, sheet)
 	return sheet, nil
